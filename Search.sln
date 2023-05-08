@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Search", "Search\Search.csproj", "{A51DFCD4-2F79-4E04-A2C9-8C3027983CB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UISearcher", "UISearcher\UISearcher.csproj", "{8097B299-0A4A-4E98-8189-024644035309}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A51DFCD4-2F79-4E04-A2C9-8C3027983CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A51DFCD4-2F79-4E04-A2C9-8C3027983CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A51DFCD4-2F79-4E04-A2C9-8C3027983CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A51DFCD4-2F79-4E04-A2C9-8C3027983CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8097B299-0A4A-4E98-8189-024644035309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8097B299-0A4A-4E98-8189-024644035309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8097B299-0A4A-4E98-8189-024644035309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8097B299-0A4A-4E98-8189-024644035309}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5832113-1D78-43AD-AE6C-7D90662AC930}
+	EndGlobalSection
+EndGlobal
