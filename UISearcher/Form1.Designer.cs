@@ -28,106 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
-            matricLabel = new Label();
-            matrictextbox = new TextBox();
-            LoadStudentButton = new Button();
-            Namelabel = new Label();
-            facultylabel = new Label();
-            cgpaLabel = new Label();
-            departmentLabel = new Label();
+            button1 = new Button();
+            searchtexbox = new TextBox();
+            uploadDocument = new OpenFileDialog();
+            searchButton = new Button();
             SuspendLayout();
             // 
-            // matricLabel
+            // button1
             // 
-            matricLabel.Location = new Point(146, 343);
-            matricLabel.Name = "matricLabel";
-            matricLabel.Size = new Size(139, 31);
-            matricLabel.TabIndex = 0;
-            matricLabel.Text = "enter matic number";
+            button1.Location = new Point(41, 552);
+            button1.Name = "button1";
+            button1.Size = new Size(273, 48);
+            button1.TabIndex = 0;
+            button1.Text = "UPLOAD DOCUMENT";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
             // 
-            // matrictextbox
+            // searchtexbox
             // 
-            matrictextbox.Location = new Point(342, 340);
-            matrictextbox.Name = "matrictextbox";
-            matrictextbox.Size = new Size(291, 23);
-            matrictextbox.TabIndex = 1;
+            searchtexbox.Location = new Point(299, 147);
+            searchtexbox.Name = "searchtexbox";
+            searchtexbox.Size = new Size(301, 23);
+            searchtexbox.TabIndex = 1;
             // 
-            // LoadStudentButton
+            // uploadDocument
             // 
-            LoadStudentButton.Location = new Point(276, 416);
-            LoadStudentButton.Name = "LoadStudentButton";
-            LoadStudentButton.Size = new Size(166, 50);
-            LoadStudentButton.TabIndex = 2;
-            LoadStudentButton.Text = "load student";
-            LoadStudentButton.UseVisualStyleBackColor = true;
-            LoadStudentButton.Click += button1_Click;
+            uploadDocument.FileName = "uploadDocument";
             // 
-            // Namelabel
+            // searchButton
             // 
-            Namelabel.AutoSize = true;
-            Namelabel.Font = new Font("Stencil", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            Namelabel.Location = new Point(151, 39);
-            Namelabel.Name = "Namelabel";
-            Namelabel.Size = new Size(71, 25);
-            Namelabel.TabIndex = 3;
-            Namelabel.Text = "NAME";
-            // 
-            // facultylabel
-            // 
-            facultylabel.AutoSize = true;
-            facultylabel.Font = new Font("Stencil", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            facultylabel.Location = new Point(151, 84);
-            facultylabel.Name = "facultylabel";
-            facultylabel.Size = new Size(106, 25);
-            facultylabel.TabIndex = 5;
-            facultylabel.Text = "FACULTY";
-            // 
-            // cgpaLabel
-            // 
-            cgpaLabel.AutoSize = true;
-            cgpaLabel.Font = new Font("Stencil", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            cgpaLabel.Location = new Point(151, 177);
-            cgpaLabel.Name = "cgpaLabel";
-            cgpaLabel.Size = new Size(67, 25);
-            cgpaLabel.TabIndex = 6;
-            cgpaLabel.Text = "CGPA";
-            // 
-            // departmentLabel
-            // 
-            departmentLabel.AutoSize = true;
-            departmentLabel.Font = new Font("Stencil", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            departmentLabel.Location = new Point(151, 131);
-            departmentLabel.Name = "departmentLabel";
-            departmentLabel.Size = new Size(155, 25);
-            departmentLabel.TabIndex = 7;
-            departmentLabel.Text = "DEPARTMENT";
+            searchButton.Location = new Point(159, 134);
+            searchButton.Name = "searchButton";
+            searchButton.Size = new Size(106, 47);
+            searchButton.TabIndex = 2;
+            searchButton.Text = "SEARCH";
+            searchButton.UseVisualStyleBackColor = true;
+            searchButton.Click += searchButton_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(748, 583);
-            Controls.Add(departmentLabel);
-            Controls.Add(cgpaLabel);
-            Controls.Add(facultylabel);
-            Controls.Add(Namelabel);
-            Controls.Add(LoadStudentButton);
-            Controls.Add(matrictextbox);
-            Controls.Add(matricLabel);
+            ClientSize = new Size(1036, 653);
+            Controls.Add(searchButton);
+            Controls.Add(searchtexbox);
+            Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label matricLabel;
-        private TextBox matrictextbox;
-        private Button LoadStudentButton;
-        private Label Namelabel;
-        private Label facultylabel;
-        private Label cgpaLabel;
-        private Label departmentLabel;
+        private Button button1;
+        private TextBox searchtexbox;
+        private OpenFileDialog uploadDocument;
+        private Button searchButton;
     }
 }
