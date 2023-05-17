@@ -40,18 +40,32 @@ namespace UISearcher
             //Retrieve all documents from the collection and add them to a list
             List<BsonDocument> documents = collection.Find(new BsonDocument()).ToList();
 
+
+            // Initialize the indexer
+            Indexer indexer = new Indexer();
+
             //Display each document in the list box
             foreach (var document in documents)
             {
                 //get the file name of the document and add it to the listBox
                 string fileName = Path.GetFileName(document["filename"].AsString);
                 resultListbox.Items.Add(fileName);
+                resultListbox.Items.Add(document.ToJson());
 
+                // Index the document
+                string documentId = fileName; // Use a unique identifier for each document
+                string documentText = document.ToJson(); // Modify this to extract the relevant text content
+                Console.WriteLine(documentText);
+
+               // indexer.IndexDocument(documentId, documentText);
             }
+            //indexer.PrintInvertedIndex();
+
         }
 
         private void resultListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            /*
             // retrieve the selected filename
             var filename = resultListbox.SelectedItem.ToString();
 
@@ -77,6 +91,10 @@ namespace UISearcher
                 Process.Start("notepad.exe", tempFile);
 
             }
+            */
         }
+
+
     }
+
 }   
