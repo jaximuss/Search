@@ -50,6 +50,7 @@
             resultListbox.Name = "resultListbox";
             resultListbox.Size = new Size(1376, 554);
             resultListbox.TabIndex = 1;
+            resultListbox.SelectedIndexChanged += resultListbox_SelectedIndexChanged;
             // 
             // ResultForm
             // 

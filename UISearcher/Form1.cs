@@ -55,7 +55,6 @@ namespace UISearcher
                 var document = new BsonDocument
                 {
                     { "filename", Path.GetFileName(fileName) },
-                    
                     { "content", new BsonBinaryData(fileData) }
                 };
 
@@ -71,4 +70,16 @@ namespace UISearcher
             result.Show();
         }
     }
+    //TODO - RETRIEVE THE DOCUMENT BACK FROM THE DATABASE
+    //TODO - PARSER AND COLLECT THE DOCUMENT BACK FROM THE DB
+    //TODO - DISPLAY THE DOCUMENT
+    //TODO - MAKE THE DOCUMENT CLICKABLE
+    //TODO - CREATE AN INDEXER FROM SCRATCH
+    //TODO - MAKE RANKING SYSTEM
+    //TODO - CLEAN UP THE CODE AND MAKE SEPERATE CLASSES AND FUNCTIONS FOR EACH TASK ALSO REMOVE THE STUDENT NONSENSE
+    //TODO - SUMMARIES MUST BE MADE FOR EACH FUNCTION AND CLASS SO AS TO MAKE PROPER DOCUMENTATION
+    //TODO - MAKE A PROPER UI
+    //TODO - RUN NUNIT TESTS
+    //TODO - GET AUTO COMPLETE WORKING
+   
 }
