@@ -16,7 +16,7 @@ namespace UISearcher
             List<string> textContentList = new List<string>();
 
             string[] documentFiles = Directory.GetFiles(directoryPath, "*.pdf|*.doc|*.docx|*.pptx|*.xls|*.xlsx|*.txt|*.html|*.xml");
-
+         n
             foreach (string documentFile in documentFiles)
             {
                 string textContent = ExtractTextFromDocument(documentFile);
@@ -33,6 +33,7 @@ namespace UISearcher
             {
                 var extractor = new TextExtractor();
                 var textContent = extractor.Extract(stream.ToString());
+                MessageBox.Show(textContent.ToString());
                 return textContent;
             }
         }

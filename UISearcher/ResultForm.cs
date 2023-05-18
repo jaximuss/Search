@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using System.Data;
 using System.Diagnostics;
 using System.Text;
+using TikaOnDotNet.TextExtraction;
 
 namespace UISearcher
 {
@@ -33,7 +34,6 @@ namespace UISearcher
 
             Parser documentParser = new Parser();
 
-
             // Initialize the indexer
             Indexer indexer = new Indexer();
 
@@ -41,33 +41,26 @@ namespace UISearcher
             foreach (var document in documents)
             {
                 //get the file name of the document and add it to the listBox
-                string fileName = Path.GetFileName(document["filename"].AsString);
-                string filePath = Path.GetDirectoryName(document["filename"].AsString);
-
-                List<string> filePathList = document["filepath"].AsBsonArray.Select(x => x.ToString()).ToList();
-
-
-                resultListbox.Items.Add(fileName);
-                resultListbox.Items.Add(document.ToJson());
-                foreach (string newfilePath in filePathList)
+                string fileName = document["filename"].AsString;
+                
+                if (document.Contains("filepath"))
                 {
-                    string textContent = documentParser.ExtractTextContent(newfilePath);
-
-                    // Process and index the text content as per your requirements
-                    // ...
-
-                    // Display the file name and text content in the result ListBox
+                    string filePath = document["filepath"].AsString;
+                    TextExtractionResult textContent = documentParser.ExtractTextFromDocument(filePath);
                     resultListbox.Items.Add(fileName);
-                    resultListbox.Items.Add(textContent);
-                }
-                // Index the document
-                string documentId = fileName; // Use a unique identifier for each document
-                string documentText = document.ToJson(); // Modify this to extract the relevant text content
-                Console.WriteLine(documentText);
+                    resultListbox.Items.Add(document.ToJson());
 
-                // indexer.IndexDocument(documentId, documentText);
+                    // Index the document
+                    string documentId = fileName; // Use a unique identifier for each document
+
+                    indexer.IndexDocument(documentId, textContent.ToString());
+
+                }
+                resultListbox.Items.Add(fileName);
+                resultListbox.Items.Add(collection.ToJson());
+
             }
-            //indexer.PrintInvertedIndex();
+            indexer.PrintInvertedIndex();
 
         }
 
