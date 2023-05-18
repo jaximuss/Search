@@ -1,17 +1,8 @@
-﻿using Amazon.Runtime.Internal.Transform;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace UISearcher
 {
@@ -40,6 +31,8 @@ namespace UISearcher
             //Retrieve all documents from the collection and add them to a list
             List<BsonDocument> documents = collection.Find(new BsonDocument()).ToList();
 
+            Parser documentParser = new Parser();
+
 
             // Initialize the indexer
             Indexer indexer = new Indexer();
@@ -49,15 +42,30 @@ namespace UISearcher
             {
                 //get the file name of the document and add it to the listBox
                 string fileName = Path.GetFileName(document["filename"].AsString);
+                string filePath = Path.GetDirectoryName(document["filename"].AsString);
+
+                List<string> filePathList = document["filepath"].AsBsonArray.Select(x => x.ToString()).ToList();
+
+
                 resultListbox.Items.Add(fileName);
                 resultListbox.Items.Add(document.ToJson());
+                foreach (string newfilePath in filePathList)
+                {
+                    string textContent = documentParser.ExtractTextContent(newfilePath);
 
+                    // Process and index the text content as per your requirements
+                    // ...
+
+                    // Display the file name and text content in the result ListBox
+                    resultListbox.Items.Add(fileName);
+                    resultListbox.Items.Add(textContent);
+                }
                 // Index the document
                 string documentId = fileName; // Use a unique identifier for each document
                 string documentText = document.ToJson(); // Modify this to extract the relevant text content
                 Console.WriteLine(documentText);
 
-               // indexer.IndexDocument(documentId, documentText);
+                // indexer.IndexDocument(documentId, documentText);
             }
             //indexer.PrintInvertedIndex();
 
@@ -65,7 +73,6 @@ namespace UISearcher
 
         private void resultListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*
             // retrieve the selected filename
             var filename = resultListbox.SelectedItem.ToString();
 
@@ -91,10 +98,9 @@ namespace UISearcher
                 Process.Start("notepad.exe", tempFile);
 
             }
-            */
         }
 
 
     }
 
-}   
+}
