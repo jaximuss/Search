@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UISearcher;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -17,6 +18,12 @@ namespace UISearcher
 {
     public partial class ResultForm : Form
     {
+        string[] wordsToRemove = { "a", "an", "the", "of", "in", "on", "at", "to", "for", "with", "and", "or", "but", "is", "are",
+            "was", "were", "has", "have", "had", "be", "been", "being", "it", "that", "this", "these", "those", "as", "from", "by", 
+            "about", "into", "through", "over", "under", "above", "below", "between", "among", "while", "during", "before", "after", 
+            "since", "until", "unless", "although", "though", "even", "if", "unless", "not", "nor", "yet", "so", "because",
+            "since", "due", "both", "either", "neither", "whether", "where", "when", "who", "whom", "which", "what", "whose", "how" };
+        
         private IMongoCollection<BsonDocument> collection;
         private string Query;
         public ResultForm(string query)
@@ -66,17 +73,28 @@ namespace UISearcher
             var tempFile = Path.GetTempFileName() + extension;
             File.WriteAllBytes(tempFile, contentBytes);
 
+
+            // intialize the parser class to use the extract method
+            Parser parser = new Parser(collection);
+
+
+            //EXTRACT TEXT FROM DOCUMENT
+            var textContent = parser.RemoveWordsFromDocument(tempFile,wordsToRemove);
+
+            MessageBox.Show(textContent);
+
+
             //TODO - WE HAVE TO CHECK IF THE FILE IS A PDF OR TXT OR ANY OTHER TYPE
             // launch the file using the default application
-            if (extension.ToLower() == ".txt")
-            {
-                Process.Start("notepad.exe", tempFile);
-            }
-            else if (extension.ToLower() == ".pdf")
-            {
-                Process.Start("notepad.exe", tempFile);
+            //if (extension.ToLower() == ".txt")
+            //{
+            //    Process.Start("notepad.exe", tempFile);
+            //}
+            //else if (extension.ToLower() == ".pdf")
+            //{
+            //    Process.Start("notepad.exe", tempFile);
 
-            }
+            //}
         }
     }
 }   

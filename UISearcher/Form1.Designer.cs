@@ -32,6 +32,7 @@
             searchtexbox = new TextBox();
             uploadDocument = new OpenFileDialog();
             searchButton = new Button();
+            parsed = new Button();
             SuspendLayout();
             // 
             // button1
@@ -65,11 +66,23 @@
             searchButton.UseVisualStyleBackColor = true;
             searchButton.Click += searchButton_Click;
             // 
+            // parsed
+            // 
+            parsed.AllowDrop = true;
+            parsed.Location = new Point(394, 347);
+            parsed.Name = "parsed";
+            parsed.Size = new Size(174, 88);
+            parsed.TabIndex = 3;
+            parsed.Text = "view parse document";
+            parsed.UseVisualStyleBackColor = true;
+            parsed.Click += parsed_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1036, 653);
+            Controls.Add(parsed);
             Controls.Add(searchButton);
             Controls.Add(searchtexbox);
             Controls.Add(button1);
@@ -86,5 +99,6 @@
         private TextBox searchtexbox;
         private OpenFileDialog uploadDocument;
         private Button searchButton;
+        private Button parsed;
     }
 }

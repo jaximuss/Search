@@ -66,11 +66,15 @@ namespace UISearcher
         private void searchButton_Click(object sender, EventArgs e)
         {
             string query = searchtexbox.Text;
-            ResultForm result =new ResultForm(query);
+            ResultForm result = new ResultForm(query);
             result.Show();
         }
+
+        private void parsed_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-    //TODO - RETRIEVE THE DOCUMENT BACK FROM THE DATABASE
     //TODO - PARSER AND COLLECT THE DOCUMENT BACK FROM THE DB
     //TODO - DISPLAY THE DOCUMENT
     //TODO - MAKE THE DOCUMENT CLICKABLE
@@ -81,5 +85,5 @@ namespace UISearcher
     //TODO - MAKE A PROPER UI
     //TODO - RUN NUNIT TESTS
     //TODO - GET AUTO COMPLETE WORKING
-   
+
 }
