@@ -51,12 +51,19 @@ namespace UISearcher
         {
             string content = File.ReadAllText(filePath);
 
-
             // Split the document text into words
             string[] words = content.Split(new[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
             // Remove the irrelevant words
-            IEnumerable<string> filteredWords = words.Except(wordsToRemove, StringComparer.OrdinalIgnoreCase);
+            List<string> filteredWords = new List<string>();
+
+            foreach (string word in words)
+            {
+                if (!wordsToRemove.Contains(word, StringComparer.OrdinalIgnoreCase))
+                {
+                    filteredWords.Add(word);
+                }
+            }
 
             // Join the remaining words back into cleaned text
             string cleanedText = string.Join(" ", filteredWords);

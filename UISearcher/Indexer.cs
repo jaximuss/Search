@@ -15,20 +15,35 @@ namespace UISearcher
             wordCounts = new Dictionary<string, int>();
         }
 
-        public void IndexDocument(string[] words)
+        public string IndexDocument(string document)
         {
+            Dictionary<string, int> wordCounts = new Dictionary<string, int>();
+
+            // Split the document into words
+            string[] words = document.Split(new[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Count the occurrences of each word
             foreach (string word in words)
             {
-                if (string.IsNullOrWhiteSpace(word))
-                    continue;
-
-                string cleanedWord = RemoveSpecialCharacters(word);
-
-                if (wordCounts.ContainsKey(cleanedWord))
-                    wordCounts[cleanedWord]++;
+                if (wordCounts.ContainsKey(word))
+                {
+                    wordCounts[word]++;
+                }
                 else
-                    wordCounts[cleanedWord] = 1;
+                {
+                    wordCounts[word] = 1;
+                }
             }
+
+            // Build a string with the word counts
+            StringBuilder resultBuilder = new StringBuilder();
+            foreach (var entry in wordCounts)
+            {
+                resultBuilder.AppendLine($"{entry.Key}: {entry.Value}");
+            }
+
+            // Return the result string
+            return resultBuilder.ToString();
         }
 
         private string RemoveSpecialCharacters(string word)

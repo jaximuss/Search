@@ -18,6 +18,8 @@ namespace UISearcher
 {
     public partial class ResultForm : Form
     {
+        Indexer indexing = new Indexer();
+
         string[] wordsToRemove = { "a", "an", "the", "of", "in", "on", "at", "to", "for", "with", "and", "or", "but", "is", "are",
             "was", "were", "has", "have", "had", "be", "been", "being", "it", "that", "this", "these", "those", "as", "from", "by", 
             "about", "into", "through", "over", "under", "above", "below", "between", "among", "while", "during", "before", "after", 
@@ -82,6 +84,8 @@ namespace UISearcher
             var textContent = parser.RemoveWordsFromDocument(tempFile,wordsToRemove);
 
             MessageBox.Show(textContent);
+            var indexingResult = indexing.IndexDocument(textContent);
+            MessageBox.Show(indexingResult, "Word Counts");
 
 
             //TODO - WE HAVE TO CHECK IF THE FILE IS A PDF OR TXT OR ANY OTHER TYPE
