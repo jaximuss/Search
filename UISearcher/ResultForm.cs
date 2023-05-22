@@ -91,26 +91,6 @@ namespace UISearcher
             }
         }
 
-
-
-        //Display each document in the list box
-        // Iterate through each document
-        //foreach (var document in documents)
-        //{
-        //    // Get the content of the document
-        //    var contentBytes = document["content"].AsByteArray;
-        //    var contentString = Encoding.UTF8.GetString(contentBytes);
-
-        //    // Check if the search text exists in the document content
-        //    if (contentString.Contains(Query))
-        //    {
-        //        // Add the document to the result listbox in the ResultForm
-        //        string fileName = Path.GetFileName(document["filename"].AsString);
-        //       AddResult(fileName);
-        //    }
-        //}
-
-
         private void resultListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // retrieve the selected filename
@@ -139,18 +119,6 @@ namespace UISearcher
             var indexingResult = indexing.IndexDocument(textContent);
             MessageBox.Show(indexingResult, "Word Counts");
 
-
-            //TODO - WE HAVE TO CHECK IF THE FILE IS A PDF OR TXT OR ANY OTHER TYPE
-            // launch the file using the default application
-            //if (extension.ToLower() == ".txt")
-            //{
-            //    Process.Start("notepad.exe", tempFile);
-            //}
-            //else if (extension.ToLower() == ".pdf")
-            //{
-            //    Process.Start("notepad.exe", tempFile);
-
-            //}
         }
 
         public void ClearResults()

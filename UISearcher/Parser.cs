@@ -41,6 +41,14 @@ namespace UISearcher
                     return RemoveWordsFromWordDocument(filePath, wordsToRemove);
                 case ".pdf":
                     return RemoveWordsFromPdf(filePath, wordsToRemove);
+                case ".html":
+                    return RemoveWordsFromHTML(filePath, wordsToRemove);
+                case ".xml":
+                    return RemoveWordsFromXML(filePath, wordsToRemove);
+                case ".ppt":
+                    return RemoveWordsFromPPT(filePath, wordsToRemove);
+                case ".xls":
+                    return RemoveWordsFromXLS(filePath, wordsToRemove);
                 // Add support for other file types if needed
                 default:
                     throw new NotSupportedException("Unsupported file format.");
@@ -79,6 +87,30 @@ namespace UISearcher
         }
 
         private string RemoveWordsFromPdf(string filePath, string[] wordsToRemove)
+        {
+            // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
+            // Here, we'll simply return the file path for demonstration purposes
+            return filePath;
+        }
+        private string RemoveWordsFromHTML(string filePath, string[] wordsToRemove)
+        {
+            // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
+            // Here, we'll simply return the file path for demonstration purposes
+            return filePath;
+        }
+        private string RemoveWordsFromPPT(string filePath, string[] wordsToRemove)
+        {
+            // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
+            // Here, we'll simply return the file path for demonstration purposes
+            return filePath;
+        }
+        private string RemoveWordsFromXML(string filePath, string[] wordsToRemove)
+        {
+            // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
+            // Here, we'll simply return the file path for demonstration purposes
+            return filePath;
+        }
+        private string RemoveWordsFromXLS(string filePath, string[] wordsToRemove)
         {
             // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
             // Here, we'll simply return the file path for demonstration purposes
