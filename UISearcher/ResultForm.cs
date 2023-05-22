@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using UISearcher;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using org.apache.poi.util;
 
 namespace UISearcher
 {
@@ -21,11 +22,11 @@ namespace UISearcher
         Indexer indexing = new Indexer();
 
         string[] wordsToRemove = { "a", "an", "the", "of", "in", "on", "at", "to", "for", "with", "and", "or", "but", "is", "are",
-            "was", "were", "has", "have", "had", "be", "been", "being", "it", "that", "this", "these", "those", "as", "from", "by", 
-            "about", "into", "through", "over", "under", "above", "below", "between", "among", "while", "during", "before", "after", 
+            "was", "were", "has", "have", "had", "be", "been", "being", "it", "that", "this", "these", "those", "as", "from", "by",
+            "about", "into", "through", "over", "under", "above", "below", "between", "among", "while", "during", "before", "after",
             "since", "until", "unless", "although", "though", "even", "if", "unless", "not", "nor", "yet", "so", "because",
             "since", "due", "both", "either", "neither", "whether", "where", "when", "who", "whom", "which", "what", "whose", "how" };
-        
+
         private IMongoCollection<BsonDocument> collection;
         private string Query;
         public ResultForm(string query)
@@ -49,15 +50,66 @@ namespace UISearcher
             //Retrieve all documents from the collection and add them to a list
             List<BsonDocument> documents = collection.Find(new BsonDocument()).ToList();
 
-            //Display each document in the list box
+            // Initialize the document scores dictionary
+            Dictionary<string, int> documentScores = new Dictionary<string, int>();
+
+            // intialize the parser class to use the extract method
+            Parser parser = new Parser(collection);
+
+            // Iterate through the documents and calculate the scores
             foreach (var document in documents)
             {
-                //get the file name of the document and add it to the listBox
-                string fileName = Path.GetFileName(document["filename"].AsString);
-                resultListbox.Items.Add(fileName);
+                string filename = Path.GetFileName(document["filename"].AsString);
+                var contentBytes = document["content"].AsByteArray;
+                var extension = Path.GetExtension(document["filename"].AsString);
+                var tempFile = Path.GetTempFileName() + extension;
+                File.WriteAllBytes(tempFile, contentBytes);
+                var textContent = parser.RemoveWordsFromDocument(tempFile, wordsToRemove);
+                var indexer = new Indexer();
+                string indexedDocument = indexer.IndexDocument(textContent);
 
+                if (indexedDocument.Contains(Query))
+                {
+                    // Calculate the score based on word count
+                    int score = indexedDocument.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+                                              .Where(line => line.Contains(Query))
+                                              .Sum(line => int.Parse(line.Split(':')[1].Trim()));
+
+                    documentScores[filename] = score;
+                }
+                // Delete the temporary file after processing each document
+                File.Delete(tempFile);
+            }
+
+            // Sort the documents based on their scores in descending order
+            var sortedDocuments = documentScores.OrderByDescending(pair => pair.Value);
+
+            // Display the sorted documents to the user
+            foreach (var document in sortedDocuments)
+            {
+                resultListbox.Items.Add(document.Key);
             }
         }
+
+
+
+        //Display each document in the list box
+        // Iterate through each document
+        //foreach (var document in documents)
+        //{
+        //    // Get the content of the document
+        //    var contentBytes = document["content"].AsByteArray;
+        //    var contentString = Encoding.UTF8.GetString(contentBytes);
+
+        //    // Check if the search text exists in the document content
+        //    if (contentString.Contains(Query))
+        //    {
+        //        // Add the document to the result listbox in the ResultForm
+        //        string fileName = Path.GetFileName(document["filename"].AsString);
+        //       AddResult(fileName);
+        //    }
+        //}
+
 
         private void resultListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -81,7 +133,7 @@ namespace UISearcher
 
 
             //EXTRACT TEXT FROM DOCUMENT
-            var textContent = parser.RemoveWordsFromDocument(tempFile,wordsToRemove);
+            var textContent = parser.RemoveWordsFromDocument(tempFile, wordsToRemove);
 
             MessageBox.Show(textContent);
             var indexingResult = indexing.IndexDocument(textContent);
@@ -100,5 +152,15 @@ namespace UISearcher
 
             //}
         }
+
+        public void ClearResults()
+        {
+            resultListbox.Items.Clear();
+        }
+        public void AddResult(string fileName)
+        {
+            resultListbox.Items.Add(fileName);
+        }
+
     }
-}   
+}

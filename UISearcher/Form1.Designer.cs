@@ -51,6 +51,7 @@
             searchtexbox.Name = "searchtexbox";
             searchtexbox.Size = new Size(301, 23);
             searchtexbox.TabIndex = 1;
+            searchtexbox.TextChanged += searchtexbox_TextChanged;
             // 
             // uploadDocument
             // 
