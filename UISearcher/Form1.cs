@@ -18,6 +18,11 @@ namespace UISearcher
 
         }
 
+        /// <summary>
+        /// this is the upload document button that will upload the document to the database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click_1(object sender, EventArgs e)
         {
             //Create a new instance of openfile dialog
@@ -62,6 +67,11 @@ namespace UISearcher
             }
         }
 
+        /// <summary>
+        /// loads up the result page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchButton_Click(object sender, EventArgs e)
         {
             string query = searchtexbox.Text;
@@ -76,7 +86,7 @@ namespace UISearcher
 
         private void searchtexbox_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
     }
 

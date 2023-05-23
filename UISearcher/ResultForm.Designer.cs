@@ -39,7 +39,7 @@
             label1.Name = "label1";
             label1.Size = new Size(529, 40);
             label1.TabIndex = 0;
-            label1.Text = "name of document";
+            label1.Text = "RESULTS";
             // 
             // resultListbox
             // 
@@ -56,6 +56,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(1408, 745);
             Controls.Add(resultListbox);
             Controls.Add(label1);

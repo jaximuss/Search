@@ -116,8 +116,6 @@ namespace UISearcher
             var textContent = parser.RemoveWordsFromDocument(tempFile, wordsToRemove);
 
             MessageBox.Show(textContent);
-            var indexingResult = indexing.IndexDocument(textContent);
-            MessageBox.Show(indexingResult, "Word Counts");
 
         }
 

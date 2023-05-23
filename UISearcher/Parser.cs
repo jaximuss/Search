@@ -10,16 +10,33 @@ using TikaOnDotNet.TextExtraction;
 
 namespace UISearcher
 {
+    /// <summary>
+    /// takes in a document and removes all irrelevant words braces and others
+    /// </summary>
     public class Parser
     {
+        /// <summary>
+        /// calling the database
+        /// </summary>
         private IMongoCollection<BsonDocument> collection;
 
+        /// <summary>
+        /// collecting the database that was used in whichever class this is called in
+        /// </summary>
+        /// <param name="collection"></param>
         public Parser(IMongoCollection<BsonDocument> collection)
         {
             this.collection = collection;
         }
 
-
+        /// <summary>
+        /// Method that collects the filepath and the words to remove and removes them from the document using their respective extension method
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="wordsToRemove"></param>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="NotSupportedException"></exception>
         public string RemoveWordsFromDocument(string filePath, string[] wordsToRemove)
         {
             // Check if the file exists
@@ -55,6 +72,12 @@ namespace UISearcher
             }
         }
 
+        /// <summary>
+        /// removes words from a textfile
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="wordsToRemove"></param>
+        /// <returns></returns>
         private string RemoveWordsFromTextFile(string filePath, string[] wordsToRemove)
         {
             string content = File.ReadAllText(filePath);
@@ -78,7 +101,12 @@ namespace UISearcher
 
             return cleanedText;
         }
-
+        /// <summary>
+        /// remove the wanted words from a word document
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="wordsToRemove"></param>
+        /// <returns></returns>
         private string RemoveWordsFromWordDocument(string filePath, string[] wordsToRemove)
         {
             // Use a Word document processing library (e.g., OpenXML SDK, Aspose.Words) to manipulate the document's content
@@ -86,30 +114,64 @@ namespace UISearcher
             return filePath;
         }
 
+        /// <summary>
+        /// remove the unwanted words from a pdf
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="wordsToRemove"></param>
+        /// <returns></returns>
         private string RemoveWordsFromPdf(string filePath, string[] wordsToRemove)
         {
             // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
             // Here, we'll simply return the file path for demonstration purposes
             return filePath;
         }
+
+        /// <summary>
+        /// remove the wanted words or special characters from a HTML page
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="wordsToRemove"></param>
+        /// <returns></returns>
         private string RemoveWordsFromHTML(string filePath, string[] wordsToRemove)
         {
             // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
             // Here, we'll simply return the file path for demonstration purposes
             return filePath;
         }
+
+        /// <summary>
+        /// remove the unwanted words from a presentation file
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="wordsToRemove"></param>
+        /// <returns></returns>
         private string RemoveWordsFromPPT(string filePath, string[] wordsToRemove)
         {
             // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
             // Here, we'll simply return the file path for demonstration purposes
             return filePath;
         }
+
+        /// <summary>
+        /// remove the unwanted words from XML
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="wordsToRemove"></param>
+        /// <returns></returns>
         private string RemoveWordsFromXML(string filePath, string[] wordsToRemove)
         {
             // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
             // Here, we'll simply return the file path for demonstration purposes
             return filePath;
         }
+
+        /// <summary>
+        /// remove the unwanted words from XLS
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="wordsToRemove"></param>
+        /// <returns></returns>
         private string RemoveWordsFromXLS(string filePath, string[] wordsToRemove)
         {
             // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
