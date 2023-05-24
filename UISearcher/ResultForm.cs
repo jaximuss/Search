@@ -56,38 +56,47 @@ namespace UISearcher
             // intialize the parser class to use the extract method
             Parser parser = new Parser(collection);
 
-            // Iterate through the documents and calculate the scores
-            foreach (var document in documents)
+            if (!String.IsNullOrEmpty(Query))
             {
-                string filename = Path.GetFileName(document["filename"].AsString);
-                var contentBytes = document["content"].AsByteArray;
-                var extension = Path.GetExtension(document["filename"].AsString);
-                var tempFile = Path.GetTempFileName() + extension;
-                File.WriteAllBytes(tempFile, contentBytes);
-                var textContent = parser.RemoveWordsFromDocument(tempFile, wordsToRemove);
-                var indexer = new Indexer();
-                string indexedDocument = indexer.IndexDocument(textContent);
 
-                if (indexedDocument.Contains(Query))
+
+                // Iterate through the documents and calculate the scores
+                foreach (var document in documents)
                 {
-                    // Calculate the score based on word count
-                    int score = indexedDocument.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
-                                              .Where(line => line.Contains(Query))
-                                              .Sum(line => int.Parse(line.Split(':')[1].Trim()));
+                    string filename = Path.GetFileName(document["filename"].AsString);
+                    var contentBytes = document["content"].AsByteArray;
+                    var extension = Path.GetExtension(document["filename"].AsString);
+                    var tempFile = Path.GetTempFileName() + extension;
+                    File.WriteAllBytes(tempFile, contentBytes);
+                    var textContent = parser.RemoveWordsFromDocument(tempFile, wordsToRemove);
+                    var indexer = new Indexer();
+                    string indexedDocument = indexer.IndexDocument(textContent);
 
-                    documentScores[filename] = score;
+                    if (indexedDocument.Contains(Query))
+                    {
+                        // Calculate the score based on word count
+                        int score = indexedDocument.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+                                                  .Where(line => line.Contains(Query))
+                                                  .Sum(line => int.Parse(line.Split(':')[1].Trim()));
+
+                        documentScores[filename] = score;
+                    }
+                    // Delete the temporary file after processing each document
+                    File.Delete(tempFile);
                 }
-                // Delete the temporary file after processing each document
-                File.Delete(tempFile);
+
+                // Sort the documents based on their scores in descending order
+                var sortedDocuments = documentScores.OrderByDescending(pair => pair.Value);
+
+                // Display the sorted documents to the user
+                foreach (var document in sortedDocuments)
+                {
+                    resultListbox.Items.Add(document.Key);
+                }
             }
-
-            // Sort the documents based on their scores in descending order
-            var sortedDocuments = documentScores.OrderByDescending(pair => pair.Value);
-
-            // Display the sorted documents to the user
-            foreach (var document in sortedDocuments)
+            else
             {
-                resultListbox.Items.Add(document.Key);
+                MessageBox.Show("your search box is empty");
             }
         }
 

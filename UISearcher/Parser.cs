@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using iTextSharp.text.pdf;
 using SharpCompress.Common;
 using System;
 using System.Collections.Generic;
@@ -130,7 +131,7 @@ namespace UISearcher
         /// <summary>
         /// remove the wanted words or special characters from a HTML page
         /// </summary>
-        /// <param name="filePath"></param>
+        /// <param name="filePath"></param>h
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
         private string RemoveWordsFromHTML(string filePath, string[] wordsToRemove)
