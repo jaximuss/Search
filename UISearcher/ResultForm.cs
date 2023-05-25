@@ -56,10 +56,9 @@ namespace UISearcher
             // intialize the parser class to use the extract method
             Parser parser = new Parser(collection);
 
+            //check if the search box is empty
             if (!String.IsNullOrEmpty(Query))
             {
-
-
                 // Iterate through the documents and calculate the scores
                 foreach (var document in documents)
                 {
