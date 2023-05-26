@@ -125,52 +125,7 @@ namespace UISearcher
         {
             string outputFilePath = Path.GetTempFileName() + ".pdf";
 
-            // Open the PDF document
-            using (PdfReader reader = new PdfReader(filePath))
-            {
-                // Create a PDF stamper to modify the document
-                using (PdfStamper stamper = new PdfStamper(reader, new FileStream(outputFilePath, FileMode.Create)))
-                {
-                    // Iterate through the pages of the PDF
-                    int pageCount = reader.NumberOfPages;
-                    for (int i = 1; i <= pageCount; i++)
-                    {
-                        // Get the current page
-                        PdfDictionary page = reader.GetPageN(i);
-
-                        // Get the content of the page
-                        PdfArray content = page.GetAsArray(PdfName.CONTENTS);
-                        if (content == null)
-                            continue;
-
-                        // Create a new content stream to modify the page's content
-                        PdfStream newContent = new PdfStream();
-                        byte[] newContentBytes;
-
-                        // Read the existing content stream into a byte array
-                        using (var readerStream = new MemoryStream(content.GetStreamBytes()))
-                        {
-                            newContentBytes = new byte[readerStream.Length];
-                            readerStream.Read(newContentBytes, 0, newContentBytes.Length);
-                        }
-
-                        // Modify the content to remove words
-                        string contentString = Encoding.UTF8.GetString(newContentBytes);
-                        foreach (string word in wordsToRemove)
-                        {
-                            contentString = contentString.Replace(word, string.Empty);
-                        }
-
-                        // Write the modified content back to the new content stream
-                        newContentBytes = Encoding.UTF8.GetBytes(contentString);
-                        newContent.SetBytes(newContentBytes);
-
-                        // Update the page's content with the new content stream
-                        page.Put(PdfName.CONTENTS, newContent);
-                    }
-                }
-            }
-            return outputFilePath;
+         
         }
 
         /// <summary>
