@@ -63,7 +63,7 @@ namespace UISearcher
         /// </summary>
         /// <param name="word"></param>
         /// <returns></returns>
-        private string RemoveSpecialCharacters(string word)
+        public string RemoveSpecialCharacters(string word)
         {
             // Remove any special characters from the word
             string cleanedWord = new string(word.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)).ToArray());

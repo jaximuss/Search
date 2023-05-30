@@ -3,11 +3,13 @@ using MongoDB.Driver;
 using iTextSharp.text.pdf;
 using SharpCompress.Common;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using TikaOnDotNet.TextExtraction;
+using iTextSharp.text.pdf.parser;
 
 namespace UISearcher
 {
@@ -16,6 +18,13 @@ namespace UISearcher
     /// </summary>
     public class Parser
     {
+        string[] wordsToRemove = { "a", "an", "the", "of", "in", "on", "at", "to", "for", "with", "and", "or", "but", "is", "are",
+            "was", "were", "has", "have", "had", "be", "been", "being", "it", "that", "this", "these", "those", "as", "from", "by",
+            "about", "into", "through", "over", "under", "above", "below", "between", "among", "while", "during", "before", "after",
+            "since", "until", "unless", "although", "though", "even", "if", "unless", "not", "nor", "yet", "so", "because",
+            "since", "due", "both", "either", "neither", "whether", "where", "when", "who", "whom", "which", "what", "whose", "how" };
+
+        TextExtractor textExtractor = new TextExtractor();
         /// <summary>
         /// calling the database
         /// </summary>
@@ -38,7 +47,7 @@ namespace UISearcher
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="NotSupportedException"></exception>
-        public string RemoveWordsFromDocument(string filePath, string[] wordsToRemove)
+        public string RemoveWordsFromDocument(string filePath)
         {
             // Check if the file exists
             if (!File.Exists(filePath))
@@ -47,13 +56,13 @@ namespace UISearcher
             }
 
             // Get the file extension
-            var extension = Path.GetExtension(filePath).ToLower();
+            var extension = System.IO.Path.GetExtension(filePath).ToLower();
 
             // Process the document based on the file extension
             switch (extension)
             {
                 case ".txt":
-                    return RemoveWordsFromTextFile(filePath, wordsToRemove);
+                    return RemoveWordsFromTextFile(filePath);
                 case ".doc":
                 case ".docx":
                     return RemoveWordsFromWordDocument(filePath, wordsToRemove);
@@ -79,14 +88,14 @@ namespace UISearcher
         /// <param name="filePath"></param>
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
-        private string RemoveWordsFromTextFile(string filePath, string[] wordsToRemove)
+        private string RemoveWordsFromTextFile(string filePath)
         {
             string content = File.ReadAllText(filePath);
 
             // Split the document text into words
             string[] words = content.Split(new[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
-            // Remove the irrelevant words
+            // Remove the cleaned words
             List<string> filteredWords = new List<string>();
 
             foreach (string word in words)
@@ -116,16 +125,27 @@ namespace UISearcher
         }
 
         /// <summary>
-        /// remove the unwanted words from a pdf
+        /// remove the unwanted words from a pdf and return the text
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
         private string RemoveWordsFromPdf(string filePath, string[] wordsToRemove)
         {
-            string outputFilePath = Path.GetTempFileName() + ".pdf";
+            StringBuilder content = new StringBuilder();
+            using (PdfReader reader = new PdfReader(filePath))
+            {
+                // Iterate over each page of the PDF document
+                for (int pageNumber = 1; pageNumber <= reader.NumberOfPages; pageNumber++)
+                {
+                    // Use a text extraction strategy to extract text from the page
+                    ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+                    string pageText = PdfTextExtractor.GetTextFromPage(reader, pageNumber, strategy);
 
-         
+                    content.Append(pageText);
+                }
+            }
+            return content.ToString();
         }
 
         /// <summary>

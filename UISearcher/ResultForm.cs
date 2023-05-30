@@ -14,11 +14,14 @@ using UISearcher;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using org.apache.poi.util;
+using TikaOnDotNet.TextExtraction;
 
 namespace UISearcher
 {
     public partial class ResultForm : Form
     {
+        
+
         Indexer indexing = new Indexer();
 
         string[] wordsToRemove = { "a", "an", "the", "of", "in", "on", "at", "to", "for", "with", "and", "or", "but", "is", "are",
@@ -67,9 +70,11 @@ namespace UISearcher
                     var extension = Path.GetExtension(document["filename"].AsString);
                     var tempFile = Path.GetTempFileName() + extension;
                     File.WriteAllBytes(tempFile, contentBytes);
-                    var textContent = parser.RemoveWordsFromDocument(tempFile, wordsToRemove);
+                    var textContent = parser.RemoveWordsFromDocument(tempFile);
                     var indexer = new Indexer();
                     string indexedDocument = indexer.IndexDocument(textContent);
+                    indexer.RemoveSpecialCharacters(indexedDocument);
+                    
 
                     if (indexedDocument.Contains(Query))
                     {
@@ -121,7 +126,7 @@ namespace UISearcher
 
 
             //EXTRACT TEXT FROM DOCUMENT
-            var textContent = parser.RemoveWordsFromDocument(tempFile, wordsToRemove);
+            var textContent = parser.RemoveWordsFromDocument(tempFile);
 
             MessageBox.Show(textContent);
 
