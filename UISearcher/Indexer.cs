@@ -54,7 +54,7 @@ namespace UISearcher
                 resultBuilder.AppendLine($"{entry.Key}: {entry.Value}");
             }
 
-            // Return the result string
+            // Return the result string 
             return resultBuilder.ToString();
         }
 
