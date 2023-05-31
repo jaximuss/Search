@@ -1,5 +1,4 @@
-
-using UISearcher;
+﻿using UISearcher;
 
 namespace searchEngineTestingGrounds
 {
@@ -18,7 +17,7 @@ namespace searchEngineTestingGrounds
             File.WriteAllText(filePath, originalText);
 
             // Act
-           cleanedText = RemoveWordsFromTextFile(filePath);
+            cleanedText = RemoveWordsFromTextFile(filePath);
 
             // Assert
             Assert.AreEqual(expectedText, cleanedText);
@@ -31,7 +30,7 @@ namespace searchEngineTestingGrounds
             var parse1 = new Parser();
 
             //Act
-            var result = parse1.RemoveWordsFromWordDocument(filePath,wordsToRemove);
+            var result = parse1.RemoveWordsFromWordDocument(filePath, wordsToRemove);
 
             // Assert
             Assert.AreEqual(filePath, result);
@@ -59,7 +58,7 @@ namespace searchEngineTestingGrounds
             var parse3 = new Parser();
 
             //Act
-            var result1 = parse3.RemoveWordsFromHTML(filepath,wordsToRemove);
+            var result1 = parse3.RemoveWordsFromHTML(filepath, wordsToRemove);
 
             //Assert
             Assert.IsTrue(result1.Contains("over"));
@@ -73,7 +72,7 @@ namespace searchEngineTestingGrounds
             var parse4 = new Parser();
 
             //Act
-            var result2 = parse4.RemoveWordsFromPPT(filepath,wordsToRemove);
+            var result2 = parse4.RemoveWordsFromPPT(filepath, wordsToRemove);
 
             //Assert
             Assert.IsTrue(result1.Contains("over"));
@@ -87,7 +86,7 @@ namespace searchEngineTestingGrounds
             var parse5 = new Parser();
 
             //Act
-            var result3 = parse5.RemoveWordsFromXML(filepath,wordsToRemove);
+            var result3 = parse5.RemoveWordsFromXML(filepath, wordsToRemove);
 
             //Assert
             Assert.IsTrue(result1.Contains("neither"));
