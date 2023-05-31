@@ -46,7 +46,7 @@
             // 
             // searchtexbox
             // 
-            searchtexbox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            searchtexbox.AutoCompleteMode = AutoCompleteMode.Suggest;
             searchtexbox.AutoCompleteSource = AutoCompleteSource.CustomSource;
             searchtexbox.Location = new Point(212, 158);
             searchtexbox.Name = "searchtexbox";
