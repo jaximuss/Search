@@ -1,6 +1,7 @@
-﻿using UISearcher;
+﻿using NUnit.Framework;
+using UISearcher;
 
-namespace searchEngineTestingGrounds
+namespace UISearcher.Tests
 {
     public class ParserTests
     {
