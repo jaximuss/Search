@@ -16,8 +16,6 @@ namespace UISearcher
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-
             // Load the autocomplete data
             List<string> autoCompleteData = LoadAutoCompleteData();
 
@@ -90,18 +88,9 @@ namespace UISearcher
         private void searchButton_Click(object sender, EventArgs e)
         {
             string query = searchtexbox.Text;
-            // Start the stopwatch to measure the query search time
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
+            MeasureQuerySearchTime(query);
 
             ResultForm result = new ResultForm(query);
-            result.Show();
-            stopwatch.Stop();
-            TimeSpan elapsedTime = stopwatch.Elapsed;
-
-            // Display the query search time
-            MessageBox.Show($"Query search time: {elapsedTime.TotalSeconds} s");
-
         }
 
         private void parsed_Click(object sender, EventArgs e)
@@ -114,6 +103,10 @@ namespace UISearcher
 
         }
 
+        /// <summary>
+        /// load the autocomplete property of the search box get each word from the mongodb database and display it to the user
+        /// </summary>
+        /// <returns></returns>
         private List<string> LoadAutoCompleteData()
         {
             MongoClient client = new MongoClient("mongodb://localhost:27017");
@@ -135,6 +128,23 @@ namespace UISearcher
             }
 
             return autoCompleteData;
+        }
+
+        private void MeasureQuerySearchTime(string query)
+        {
+            // Start the stopwatch to measure the query search time
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            ResultForm result = new ResultForm(query);
+            result.Show();
+
+            // Stop the stopwatch and calculate the elapsed time in seconds
+            stopwatch.Stop();
+            TimeSpan elapsedTime = stopwatch.Elapsed;
+            double seconds = Math.Round(elapsedTime.TotalSeconds/10,3 );
+
+            // Display the query search time in seconds
+            MessageBox.Show($"Query search time: {seconds} seconds");
         }
     }
 

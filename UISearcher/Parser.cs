@@ -28,6 +28,10 @@ namespace UISearcher
             "about", "into", "through", "over", "under", "above", "below", "between", "among", "while", "during", "before", "after",
             "since", "until", "unless", "although", "though", "even", "if", "unless", "not", "nor", "yet", "so", "because",
             "since", "due", "both", "either", "neither", "whether", "where", "when", "who", "whom", "which", "what", "whose", "how" };
+        public Parser()
+        {
+            
+        }
 
         TextExtractor textExtractor = new TextExtractor();
         /// <summary>
@@ -70,15 +74,15 @@ namespace UISearcher
                     return RemoveWordsFromTextFile(filePath);
                 case ".doc":
                 case ".docx":
-                    return RemoveWordsFromWordDocument(filePath, wordsToRemove);
+                    return RemoveWordsFromWordDocument(filePath);
                 case ".pdf":
-                    return RemoveWordsFromPdf(filePath, wordsToRemove);
+                    return RemoveWordsFromPdf(filePath);
                 case ".html":
-                    return RemoveWordsFromHTML(filePath, wordsToRemove);
+                    return RemoveWordsFromHTML(filePath);
                 case ".xml":
-                    return RemoveWordsFromXML(filePath, wordsToRemove);
+                    return RemoveWordsFromXML(filePath);
                 case ".ppt":
-                    return RemoveWordsFromPPT(filePath, wordsToRemove);
+                    return RemoveWordsFromPPT(filePath);
                 case ".xls":
                     return RemoveWordsFromXLS(filePath);
                 // Add support for other file types if needed
@@ -93,7 +97,7 @@ namespace UISearcher
         /// <param name="filePath"></param>
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
-        private string RemoveWordsFromTextFile(string filePath)
+        public string RemoveWordsFromTextFile(string filePath)
         {
             string content = File.ReadAllText(filePath);
 
@@ -122,7 +126,7 @@ namespace UISearcher
         /// <param name="filePath"></param>
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
-        private string RemoveWordsFromWordDocument(string filePath, string[] wordsToRemove)
+        public string RemoveWordsFromWordDocument(string filePath)
         {
             // Use a Word document processing library (e.g., OpenXML SDK, Aspose.Words) to manipulate the document's content
             // Here, we'll simply return the file path for demonstration purposes
@@ -135,7 +139,7 @@ namespace UISearcher
         /// <param name="filePath"></param>
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
-        private string RemoveWordsFromPdf(string filePath, string[] wordsToRemove)
+        public string RemoveWordsFromPdf(string filePath)
         {
             StringBuilder content = new StringBuilder();
             using (PdfReader reader = new PdfReader(filePath))
@@ -159,7 +163,7 @@ namespace UISearcher
         /// <param name="filePath"></param>h
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
-        private string RemoveWordsFromHTML(string filePath, string[] wordsToRemove)
+        private string RemoveWordsFromHTML(string filePath)
         {
             // Load the HTML document using HtmlAgilityPack
             var htmlDoc = new HtmlAgilityPack.HtmlDocument();
@@ -176,7 +180,7 @@ namespace UISearcher
         /// <param name="filePath"></param>
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
-        private string RemoveWordsFromPPT(string filePath, string[] wordsToRemove)
+        private string RemoveWordsFromPPT(string filePath)
         {
             using (PresentationDocument presentationDocument = PresentationDocument.Open(filePath, false))
             {
@@ -217,7 +221,7 @@ namespace UISearcher
         /// <param name="filePath"></param>
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
-        private string RemoveWordsFromXML(string filePath, string[] wordsToRemove)
+        private string RemoveWordsFromXML(string filePath)
         {
             // Use a PDF processing library (e.g., iTextSharp, PdfSharp) to manipulate the PDF's content
             // Here, we'll simply return the file path for demonstration purposes

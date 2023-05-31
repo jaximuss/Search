@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Search", "Search\Search.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UISearcher", "UISearcher\UISearcher.csproj", "{8097B299-0A4A-4E98-8189-024644035309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "searchEngineTestingGrounds", "searchEngineTestingGrounds\searchEngineTestingGrounds.csproj", "{8F003C30-8280-4F82-8A31-7BB36C12FFCF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{8097B299-0A4A-4E98-8189-024644035309}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8097B299-0A4A-4E98-8189-024644035309}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8097B299-0A4A-4E98-8189-024644035309}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F003C30-8280-4F82-8A31-7BB36C12FFCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F003C30-8280-4F82-8A31-7BB36C12FFCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F003C30-8280-4F82-8A31-7BB36C12FFCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F003C30-8280-4F82-8A31-7BB36C12FFCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
